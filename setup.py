@@ -43,4 +43,9 @@ setup(
     install_requires=REQUIREMENTS,
     classifiers=CLASSIFIERS,
     python_requires=">=3.11",
+    entry_points={
+        "console_scripts": [
+            "impick_server=impick.server:start_server",
+        ]
+    },
 )
