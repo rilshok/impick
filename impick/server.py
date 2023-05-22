@@ -14,7 +14,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from starlette.responses import RedirectResponse
 
-templates = Jinja2Templates(directory=str(Path(__file__).parent.parent / "html"))
+templates = Jinja2Templates(directory=str(Path(__file__).parent / "html"))
 
 
 def parse_image_dir(root: Path) -> Iterator[Tuple[str, List[str]]]:

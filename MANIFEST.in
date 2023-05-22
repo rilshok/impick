@@ -4,4 +4,4 @@ include LICENSE
 recursive-include impick *.py
 recursive-include impick *.pyi
 recursive-include impick *.typed
-recursive-include html *.html
+recursive-include impick *.html
