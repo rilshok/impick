@@ -1,7 +1,7 @@
-pytest
-fastapi
-uvicorn
 argcomplete
+fastapi
 jinja2
+pandas
+pytest
 python-multipart
-aiofiles
+uvicorn
