@@ -2,3 +2,6 @@ pytest
 fastapi
 uvicorn
 argcomplete
+jinja2
+python-multipart
+aiofiles
