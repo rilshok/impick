@@ -17,16 +17,16 @@ from starlette.responses import RedirectResponse
 templates = Jinja2Templates(directory=str(Path(__file__).parent.parent / "html"))
 
 
-def _parse_image_dir(root: Path) -> Iterator[Tuple[str, List[str]]]:
+def parse_image_dir(root: Path) -> Iterator[Tuple[str, List[str]]]:
     for group_dir in root.iterdir():
         if not group_dir.is_dir():
             continue
-        paths = (p.relative_to(root) for p in group_dir.glob("*.jpg"))
+        paths = [p.relative_to(root) for p in group_dir.glob("*.jpg")]
 
         yield group_dir.name, list(map(str, paths))
 
 
-def _write_to_csv(file_path: Path, path: str, group: str, file: str):
+def write_to_csv(file_path: Path, path: str, group: str, file: str):
     file_exists = file_path.exists()
     with open(file_path, mode="a", newline="", encoding="utf-8") as csvfile:
         writer = csv.writer(csvfile)
@@ -40,7 +40,7 @@ def index(
     report: Path,
     mode: Literal["sequential", "individual"],
 ):
-    groups = set(map(str, image_groups))
+    groups = set(image_groups.keys())
 
     def inner(request: Request, path: Optional[str] = None):
         if report.exists():
@@ -51,8 +51,8 @@ def index(
                 pass
             else:
                 raise ValueError(f"Invalid mode: {mode}")
-            choices = list(groups - set(map(str, frame["group"])))
-            if len(choices) == 0:
+            choices = list(groups - set(frame["group"].astype(str)))
+            if not choices:
                 return RedirectResponse(url="/completed")
             index = len(frame) + 1
             group_name = random.choice(choices)
@@ -92,9 +92,7 @@ def selector(report: Path):
         if image_name_split[0] != group_name:
             raise ValueError("Image name does not match group name")
         selected_image = image_name_split[1]
-        _write_to_csv(
-            file_path=report, path=path, group=group_name, file=selected_image
-        )
+        write_to_csv(file_path=report, path=path, group=group_name, file=selected_image)
         return RedirectResponse(url=f"/{path}")
 
     return inner
@@ -125,15 +123,13 @@ def serve(
 
     app = FastAPI()
 
-    image_groups = dict(_parse_image_dir(images))
-    # print(image_groups)
+    image_groups = dict(parse_image_dir(images))
 
     app.mount("/images", StaticFiles(directory=str(images)), name="images")
     app.get("/select_image")(selector(report))
     app.get("/completed")(completed(len(image_groups)))
-
     app.get("/{path}")(index(image_groups, report, mode=mode))
-    app.get("/")(lambda: RedirectResponse(url="/unknown"))
+    app.get("/")(lambda: RedirectResponse(url="/anonym"))
 
     uvicorn.run(app, host=host, port=port)
 
