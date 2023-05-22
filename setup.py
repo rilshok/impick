@@ -12,7 +12,7 @@ AUTHOR = "Vladislav A. Proskurov"
 AUTHOR_EMAIL = "rilshok@pm.me"
 URL = "https://github.com/rilshok/impick"
 CLASSIFIERS = [
-    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.7",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Development Status :: 1 - Planning",
@@ -42,7 +42,7 @@ setup(
     zip_safe=False,
     install_requires=REQUIREMENTS,
     classifiers=CLASSIFIERS,
-    python_requires=">=3.11",
+    python_requires=">=3.7",
     entry_points={
         "console_scripts": [
             "impick_server=impick.server:start_server",
