@@ -3,16 +3,16 @@
 import runpy
 from pathlib import Path
 
-from setuptools import find_packages, setup #type: ignore
+from setuptools import find_packages, setup  # type: ignore
 
-NAME = "<PROJECT_NAME>"
-DESCRIPTION = "<PROJECT_DESCRIPTION>"
+NAME = "impick"
+DESCRIPTION = "ImPick - view and select a single image from a group using the web-GUI"
 LICENSE = "MIT"
-AUTHOR = "<AUTHOR_NAME>"
-AUTHOR_EMAIL = "<AUTHOR_EMAIL>"
-URL = f"<AUTHOR_GITHUB>/{NAME}"
+AUTHOR = "Vladislav A. Proskurov"
+AUTHOR_EMAIL = "rilshok@pm.me"
+URL = "https://github.com/rilshok/impick"
 CLASSIFIERS = [
-    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.11",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Development Status :: 1 - Planning",
@@ -42,5 +42,5 @@ setup(
     zip_safe=False,
     install_requires=REQUIREMENTS,
     classifiers=CLASSIFIERS,
-    python_requires=">=3.6",
+    python_requires=">=3.11",
 )

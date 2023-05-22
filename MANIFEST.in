@@ -1,6 +1,6 @@
 include *.md
 include requirements.txt
 include LICENSE
-recursive-include <PROJECT_NAME> *.py
-recursive-include <PROJECT_NAME> *.pyi
-recursive-include <PROJECT_NAME> *.typed
+recursive-include impick *.py
+recursive-include impick *.pyi
+recursive-include impick *.typed
